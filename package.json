@@ -1,0 +1,31 @@
+{
+  "name": "backend-production-playbook",
+  "version": "1.0.0",
+  "description": "A structured 15-day backend engineering playbook focused on building production-ready systems.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anshu0714/backend-production-playbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anshu0714/backend-production-playbook/issues"
+  },
+  "homepage": "https://github.com/anshu0714/backend-production-playbook#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1"
+  }
+}
