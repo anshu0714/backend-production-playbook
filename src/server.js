@@ -1,6 +1,13 @@
 const app = require("./app");
 const { PORT } = require("./config/env");
+const connectDB = require("./config/db");
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const start = async () => {
+  await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`);
+  });
+};
+
+start();
