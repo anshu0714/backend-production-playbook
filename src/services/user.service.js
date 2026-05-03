@@ -1,9 +1,7 @@
 const userRepo = require("../repositories/user.repository");
 
 const registerUser = async (payload) => {
-  const email = payload.email.toLowerCase();
-
-  const exists = await userRepo.findByEmail(email);
+  const exists = await userRepo.findByEmail(payload.email);
 
   if (exists) {
     const err = new Error("Email already registered");
@@ -11,10 +9,7 @@ const registerUser = async (payload) => {
     throw err;
   }
 
-  const user = await userRepo.create({
-    ...payload,
-    email,
-  });
+  const user = await userRepo.create(payload);
 
   return {
     id: user._id,
