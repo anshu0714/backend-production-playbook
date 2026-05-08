@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const userRepo = require("../repositories/user.repository");
 
 const registerUser = async (payload) => {
@@ -9,7 +10,12 @@ const registerUser = async (payload) => {
     throw err;
   }
 
-  const user = await userRepo.create(payload);
+  const hashedPassword = await bcrypt.hash(payload.password, 10);
+
+  const user = await userRepo.create({
+    ...payload,
+    password: hashedPassword,
+  });
 
   return {
     id: user._id,

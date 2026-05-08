@@ -8,6 +8,10 @@ const findByEmail = (email) => {
   return User.findOne({ email }).select("_id email name").lean();
 };
 
+const findByEmailWithPassword = (email) => {
+  return User.findOne({ email }).select("+password");
+};
+
 const findById = (id) => {
   return User.findById(id).select("_id email name").lean();
 };
@@ -15,5 +19,6 @@ const findById = (id) => {
 module.exports = {
   create,
   findByEmail,
+  findByEmailWithPassword,
   findById,
 };
