@@ -19,7 +19,10 @@ const loginUser = async ({ email, password }) => {
     throw err;
   }
 
-  const payload = { userId: user._id };
+  const payload = {
+    userId: user._id,
+    role: user.role,
+  };
 
   return {
     user: {
