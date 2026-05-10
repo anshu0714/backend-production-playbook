@@ -5,6 +5,7 @@ const morgan = require("morgan");
 
 const routes = require("./routes");
 const errorMiddleware = require("./middlewares/error.middleware");
+const logger = require("./utils/logger");
 
 const app = express();
 
@@ -18,7 +19,13 @@ app.use(cors());
 app.use(express.json({ limit: "10kb" }));
 
 // logging
-app.use(morgan("combined"));
+app.use(
+  morgan(":method :url :status :response-time ms - :res[content-length]", {
+    stream: {
+      write: (message) => logger.http(message.trim()),
+    },
+  }),
+);
 
 // routes
 app.use("/api", routes);

@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
+
 const { DB_URI, NODE_ENV } = require("./env");
+
+const logger = require("../utils/logger");
 
 const connectDB = async () => {
   try {
@@ -9,10 +12,16 @@ const connectDB = async () => {
       autoIndex: NODE_ENV !== "production",
     });
 
-    console.log("MongoDB connected successfully");
+    logger.info("MongoDB connected successfully");
   } catch (err) {
-    console.error("DB connection error:", err.message);
-    process.exit(1);
+    logger.error("DB connection failed", {
+      error: err.message,
+      stack: err.stack,
+    });
+
+    setTimeout(() => {
+      process.exit(1);
+    }, 100);
   }
 };
 
