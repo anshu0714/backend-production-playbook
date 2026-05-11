@@ -1,16 +1,16 @@
 const userService = require("../services/user.service");
 
-const register = async (req, res, next) => {
-  try {
-    const data = await userService.registerUser(req.body);
+const catchAsync = require("../utils/catchAsync");
 
-    res.status(201).json({
-      success: true,
-      data,
-    });
-  } catch (err) {
-    next(err);
-  }
+const register = catchAsync(async (req, res) => {
+  const data = await userService.registerUser(req.body);
+
+  res.status(201).json({
+    success: true,
+    data,
+  });
+});
+
+module.exports = {
+  register,
 };
-
-module.exports = { register };

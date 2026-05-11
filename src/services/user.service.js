@@ -1,13 +1,14 @@
 const bcrypt = require("bcryptjs");
+
 const userRepo = require("../repositories/user.repository");
+
+const AppError = require("../utils/appError");
 
 const registerUser = async (payload) => {
   const exists = await userRepo.findByEmail(payload.email);
 
   if (exists) {
-    const err = new Error("Email already registered");
-    err.statusCode = 400;
-    throw err;
+    throw new AppError("Email already registered", 400);
   }
 
   const hashedPassword = await bcrypt.hash(payload.password, 10);

@@ -1,22 +1,22 @@
 const bcrypt = require("bcryptjs");
+
 const userRepo = require("../repositories/user.repository");
+
 const { generateAccessToken, generateRefreshToken } = require("../utils/token");
+
+const AppError = require("../utils/appError");
 
 const loginUser = async ({ email, password }) => {
   const user = await userRepo.findByEmailWithPassword(email);
 
   if (!user) {
-    const err = new Error("Invalid credentials");
-    err.statusCode = 400;
-    throw err;
+    throw new AppError("Invalid credentials", 400);
   }
 
   const isMatch = await bcrypt.compare(password, user.password || "");
 
   if (!isMatch) {
-    const err = new Error("Invalid credentials");
-    err.statusCode = 400;
-    throw err;
+    throw new AppError("Invalid credentials", 400);
   }
 
   const payload = {
@@ -32,6 +32,7 @@ const loginUser = async ({ email, password }) => {
     },
 
     accessToken: generateAccessToken(payload),
+
     refreshToken: generateRefreshToken(payload),
   };
 };

@@ -1,9 +1,32 @@
 const logger = require("../utils/logger");
+const { NODE_ENV } = require("../config/env");
+
+const sendDevError = (err, res) => {
+  res.status(err.statusCode).json({
+    success: false,
+    message: err.message,
+    stack: err.stack,
+  });
+};
+
+const sendProdError = (err, res) => {
+  if (err.isOperational) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+    });
+  }
+
+  return res.status(500).json({
+    success: false,
+    message: "Something went wrong",
+  });
+};
 
 module.exports = (err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
+  err.statusCode = err.statusCode || 500;
 
-  if (statusCode >= 500) {
+  if (err.statusCode >= 500) {
     logger.error(err.message, {
       stack: err.stack,
       method: req.method,
@@ -16,8 +39,9 @@ module.exports = (err, req, res, next) => {
     });
   }
 
-  res.status(statusCode).json({
-    success: false,
-    message: err.message || "Internal Server Error",
-  });
+  if (NODE_ENV === "development") {
+    return sendDevError(err, res);
+  }
+
+  return sendProdError(err, res);
 };

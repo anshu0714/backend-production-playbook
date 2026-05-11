@@ -1,13 +1,13 @@
 const { verifyAccessToken } = require("../utils/token");
 
+const AppError = require("../utils/appError");
+
 const auth = (req, res, next) => {
   try {
     const header = req.headers.authorization;
 
     if (!header || !header.startsWith("Bearer ")) {
-      const err = new Error("Unauthorized");
-      err.statusCode = 401;
-      throw err;
+      throw new AppError("Unauthorized", 401);
     }
 
     const token = header.split(" ")[1];
@@ -18,10 +18,7 @@ const auth = (req, res, next) => {
 
     next();
   } catch (err) {
-    const error = new Error("Invalid or expired token");
-    error.statusCode = 401;
-
-    next(error);
+    next(new AppError("Invalid or expired token", 401));
   }
 };
 
