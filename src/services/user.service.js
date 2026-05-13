@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 
 const userRepo = require("../repositories/user.repository");
 
+const { getCache, setCache } = require("../utils/cache");
+
 const AppError = require("../utils/appError");
 
 const registerUser = async (payload) => {
@@ -25,6 +27,27 @@ const registerUser = async (payload) => {
   };
 };
 
+const getUserProfile = async (userId) => {
+  const cacheKey = `user:${userId}`;
+
+  const cachedUser = await getCache(cacheKey);
+
+  if (cachedUser) {
+    return cachedUser;
+  }
+
+  const user = await userRepo.findById(userId);
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  await setCache(cacheKey, user);
+
+  return user;
+};
+
 module.exports = {
   registerUser,
+  getUserProfile,
 };

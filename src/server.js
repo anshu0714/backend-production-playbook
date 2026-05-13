@@ -1,6 +1,7 @@
 const app = require("./app");
 
 const connectDB = require("./config/db");
+const { connectRedis } = require("./config/redis");
 
 const { PORT } = require("./config/env");
 
@@ -8,6 +9,8 @@ const logger = require("./utils/logger");
 
 const start = async () => {
   await connectDB();
+
+  await connectRedis();
 
   app.listen(PORT, () => {
     logger.info(`Server running on port ${PORT}`);

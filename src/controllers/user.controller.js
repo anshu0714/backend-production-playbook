@@ -11,6 +11,16 @@ const register = catchAsync(async (req, res) => {
   });
 });
 
+const getProfile = catchAsync(async (req, res) => {
+  const user = await userService.getUserProfile(req.user.userId);
+
+  res.json({
+    success: true,
+    data: user,
+  });
+});
+
 module.exports = {
   register,
+  getProfile,
 };

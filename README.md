@@ -30,27 +30,28 @@ No theory. Only implementation + decisions.
 
 ## 📅 15-Day Plan
 
-| Day | Focus |
-|-----|------|
-| Day 1 | Project Setup (Structure + Boilerplate) |
-| Day 2 | Database Layer + Repository Pattern |
-| Day 3 | Validation Layer (Zod/Joi) |
-| Day 4 | Auth System (JWT + Access/Refresh) |
-| Day 5 | Role-Based Access Control |
-| Day 6 | Logging System (Winston/Pino) |
-| Day 7 | Error Handling System (Advanced) |
-| Day 8 | Caching Layer (Redis) |
-| Day 9 | Rate Limiting + Security Hardening |
-| Day 10 | File Upload + Storage |
-| Day 11 | Background Jobs (Queues) |
-| Day 12 | API Documentation (Swagger) |
-| Day 13 | Testing (Unit + Integration) |
-| Day 14 | Deployment (Docker + CI/CD) |
-| Day 15 | Production Checklist + Final Template |
+| Day    | Focus                                   |
+| ------ | --------------------------------------- |
+| Day 1  | Project Setup (Structure + Boilerplate) |
+| Day 2  | Database Layer + Repository Pattern     |
+| Day 3  | Validation Layer (Zod/Joi)              |
+| Day 4  | Auth System (JWT + Access/Refresh)      |
+| Day 5  | Role-Based Access Control               |
+| Day 6  | Logging System (Winston/Pino)           |
+| Day 7  | Error Handling System (Advanced)        |
+| Day 8  | Caching Layer (Redis)                   |
+| Day 9  | Rate Limiting + Security Hardening      |
+| Day 10 | File Upload + Storage                   |
+| Day 11 | Background Jobs (Queues)                |
+| Day 12 | API Documentation (Swagger)             |
+| Day 13 | Testing (Unit + Integration)            |
+| Day 14 | Deployment (Docker + CI/CD)             |
+| Day 15 | Production Checklist + Final Template   |
 
 ---
 
 ## 📁 Project Structure
+
 ```
 src/
 ├── config/
@@ -66,7 +67,6 @@ src/
 ├── app.js
 └── server.js
 ```
-
 
 ---
 
