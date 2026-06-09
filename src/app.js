@@ -1,10 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const hpp = require("hpp");
 const morgan = require("morgan");
+
+const { CLIENT_URL } = require("./config/env");
 
 const routes = require("./routes");
 
+const apiLimiter = require("./middlewares/rateLimit.middleware");
 const errorMiddleware = require("./middlewares/error.middleware");
 
 const logger = require("./utils/logger");
@@ -15,9 +19,15 @@ const app = express();
 
 // security
 app.use(helmet());
+app.use(hpp());
 
 // cors
-app.use(cors());
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    credentials: true,
+  }),
+);
 
 // body parser
 app.use(express.json({ limit: "10kb" }));
@@ -30,6 +40,9 @@ app.use(
     },
   }),
 );
+
+// API rate limiter
+app.use("/api", apiLimiter);
 
 // routes
 app.use("/api", routes);

@@ -3,6 +3,7 @@ require("dotenv").config();
 module.exports = {
   PORT: process.env.PORT || 5000,
   NODE_ENV: process.env.NODE_ENV || "development",
+  CLIENT_URL: process.env.CLIENT_URL || "http://localhost:3000",
   DB_URI: process.env.DB_URI,
   REDIS_URL: process.env.REDIS_URL,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
