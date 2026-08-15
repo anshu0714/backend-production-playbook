@@ -3,6 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const hpp = require("hpp");
 const morgan = require("morgan");
+const path = require("path");
 
 const { CLIENT_URL } = require("./config/env");
 
@@ -46,6 +47,9 @@ app.use("/api", apiLimiter);
 
 // routes
 app.use("/api", routes);
+
+// file upload
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // health check
 app.get("/health", (req, res) => {

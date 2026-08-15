@@ -1,3 +1,6 @@
+const multer = require("multer");
+
+const AppError = require("../utils/appError");
 const logger = require("../utils/logger");
 const { NODE_ENV } = require("../config/env");
 
@@ -24,6 +27,10 @@ const sendProdError = (err, res) => {
 };
 
 module.exports = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    err = new AppError(err.message, 400);
+  }
+
   err.statusCode = err.statusCode || 500;
 
   if (err.statusCode >= 500) {

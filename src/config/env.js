@@ -10,4 +10,5 @@ module.exports = {
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
   JWT_ACCESS_EXPIRY: process.env.JWT_ACCESS_EXPIRY,
   JWT_REFRESH_EXPIRY: process.env.JWT_REFRESH_EXPIRY,
+  MAX_FILE_SIZE: Number(process.env.MAX_FILE_SIZE) || 5242880,
 };
